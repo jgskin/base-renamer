@@ -1,0 +1,34 @@
+#! /usr/bin/python3
+
+"""Interactive rename of directory's files.
+
+Works pretty well for TV series and comics.
+
+How it works: 
+
+You choose a base name for all files and after you gonna be prompted for each file
+inside of the current directory for a issue identifier. eg: 1 or s04e02
+"""
+
+import os, re
+
+
+__author__ = "Jessé Alves Galdino"
+__email__ = "galdino.jesse@gmail.com"
+__license__ = "MIT"
+
+
+dirname = '.'
+
+prefix = input('Insert the desired file name prefix: ')
+
+filenames = os.listdir(dirname)
+
+for filename in filenames:
+    number = input('insert the number for the issue "{0}": '.format(filename))
+
+    new_filename = '{0} #{1}.{2}'.format(prefix, number, re.search('\.([^.]*)$', filename).group(1))
+
+    os.rename(filename, new_filename)
+
+    print('"{0}"" renamed to "{1}"'.format(filename, new_filename))
